@@ -87,28 +87,29 @@
 
 ## 🗂️ 資料夾結構建議
 
-/Domain
-  /Entities
-    - City.cs
-    - WeatherForecast.cs
-    - WeatherAlert.cs
-  /Services
-    - WeatherService.cs
-    - WeatherAlertService.cs
-  /Interfaces
-    - IWeatherRepository.cs
+📁 Domain  
+├── 📁 Entities  
+│   ├── City.cs  
+│   ├── WeatherForecast.cs  
+│   └── WeatherAlert.cs  
+├── 📁 Services  
+│   ├── WeatherService.cs  
+│   └── WeatherAlertService.cs  
+└── 📁 Interfaces  
+    └── IWeatherRepository.cs  
 
-/Application
-  /Services
-    - WeatherOrchestratorService.cs
-  /Interfaces
-    - IForecastService.cs
-    - IWeatherAlertNotifier.cs
+📁 Application  
+├── 📁 Services  
+│   └── WeatherOrchestratorService.cs  
+└── 📁 Interfaces  
+    ├── IForecastService.cs  
+    └── IWeatherAlertNotifier.cs  
 
-/Infrastructure
-  - WeatherRepositorySql.cs : implements IWeatherRepository
-  - ForecastServiceExternalApi.cs : implements IForecastService
-  - WeatherPushNotificationService.cs : implements IWeatherAlertNotifier
+📁 Infrastructure  
+├── WeatherRepositorySql.cs            # implements IWeatherRepository  
+├── ForecastServiceExternalApi.cs     # implements IForecastService  
+└── WeatherPushNotificationService.cs # implements IWeatherAlertNotifier  
+
 ---
 
 ## 🧪 技術加值功能（Technical Add-ons）

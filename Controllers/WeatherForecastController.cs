@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
 using System.Text.Json;
+using Weather.Model;
 using Weather.Service;
 
 namespace Weather_Project.Controllers
@@ -15,25 +16,34 @@ namespace Weather_Project.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IAdministrativeService _administrativeService;
-        private readonly IOpenmeteoServiceProvider _openmeteoServiceProvider;
+        private readonly IWeatherApplicationService _weatherApplicationService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger,IAdministrativeService administrativeService, IOpenmeteoServiceProvider openmeteoServiceProvider)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger ,IWeatherApplicationService weatherApplicationService)
         {
             _logger = logger;
-            _administrativeService = administrativeService;
-            _openmeteoServiceProvider = openmeteoServiceProvider;
+            _weatherApplicationService = weatherApplicationService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<Double> Get()
+        public async Task<Double> GetWeather()
         {
-            var Coordinates = await _administrativeService.GetCoordinates("台灣", "新北市",  "蘆洲區");
+            var administrative_data = new AdministrativeData
+            {
+                Country = "台灣",
+                City = "新北市",
+                Administrative = "蘆洲區"
+            };
 
-            var url = $"https://api.open-meteo.com/v1/forecast?latitude={Coordinates.Latitude}&longitude={Coordinates.Longitude}&current=temperature_2m";
+            var current_temperature = await _weatherApplicationService.GetCurrentWeather(administrative_data);
 
-            var provider = _openmeteoServiceProvider.Create(url);
-            var current_temperature = await provider.GetCurrentTemperature();
+            return current_temperature;
+        }
+
+        [HttpPost("WeatherForecast/post")]
+        public async Task<Double> GetWeather2([FromBody] AdministrativeData administrative_data)
+        {
+
+            var current_temperature = await _weatherApplicationService.GetCurrentWeather(administrative_data);
 
             return current_temperature;
         }

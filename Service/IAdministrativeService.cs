@@ -1,7 +1,9 @@
-﻿namespace Weather.Service
+﻿using Weather.Model;
+
+namespace Weather.Service
 {
     public interface IAdministrativeService
     {
-        public Task<Model.Coordinates> GetCoordinates(string country , string city, string administrative);
+        public Task<Coordinates> GetCoordinates(string country, string city, string administrative);
     }
 }

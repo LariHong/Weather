@@ -1,4 +1,5 @@
 
+using Weather.Infrastructure;
 using Weather.Service;
 
 namespace Weather
@@ -17,7 +18,8 @@ namespace Weather
             //builder.Services.AddSwaggerGen();
 
             //µù¥UªA°È
-            builder.Services.AddSingleton<IAdministrativeService, AdministrativeService>();
+            builder.Services.AddSingleton<IWeatherApplicationService, WeatherApplicationService>();
+            builder.Services.AddSingleton<IAdministrativeServiceProvider, AdministrativeServiceProvider>();
             builder.Services.AddSingleton<IOpenmeteoServiceProvider, OpenmeteoServiceProvider>();
             builder.Services.AddHttpClient();
 

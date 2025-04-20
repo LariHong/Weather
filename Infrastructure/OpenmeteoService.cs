@@ -1,20 +1,19 @@
-﻿
-using System.Text.Json;
+﻿using System.Text.Json;
+using Weather.Service;
 
-namespace Weather.Service
+namespace Weather.Infrastructure
 {
-    //Openmeteo 的服務實作
-    public class OpenmeteoService
+    // IOpenmeteoService實作
+    public class OpenmeteoService : IOpenmeteoService
     {
-        private HttpService _httpService;
-        public OpenmeteoService(HttpService httpService)
+        private readonly HttpService _httpService;
+        public OpenmeteoService(HttpService httpService) 
         {
             _httpService = httpService;
         }
-        // 獲取Openmeteo的目前溫度
+        //獲取目前氣溫
         public async Task<double> GetCurrentTemperature()
         {
-
             var json = await _httpService.GetJson();
 
             using var doc = JsonDocument.Parse(json);

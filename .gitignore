@@ -137,3 +137,26 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+# Visual Studio 專案常見忽略項
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# 設定檔
+*.http
+appsettings.*.json
+secrets.json
+
+# Rider
+.idea/
+*.sln.iml

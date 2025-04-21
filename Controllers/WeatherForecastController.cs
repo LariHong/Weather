@@ -10,11 +10,6 @@ namespace Weather_Project.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IWeatherApplicationService _weatherApplicationService;
 
@@ -34,48 +29,21 @@ namespace Weather_Project.Controllers
                 Administrative = "蘆洲區"
             };
 
-            var current_temperature = await _weatherApplicationService.GetCurrentWeather(administrative_data);
+            var response = await _weatherApplicationService.ProcessWeatherRequest(administrative_data);
 
-            if (current_temperature == null)
-            {
-                return Ok(new WeatherResponse
-                {
-                    Success = false,
-                    Temperature = null,
-                    Message = "無法取得天氣資料"
-                });
-            }
+            if (!response.Success) return NotFound(response);
 
-            return Ok(new WeatherResponse
-            {
-                Success = true,
-                Temperature = current_temperature,
-                Message = "成功取得天氣"
-            });
+            return Ok(response);
         }
 
         [HttpPost("post")]
-        public async Task<ActionResult<WeatherResponse>> GetWeather2([FromBody] AdministrativeData administrative_data)
+        public async Task<ActionResult<WeatherResponseResult<WeatherResponse>>> PostWeather([FromBody] AdministrativeData administrative_data)
         {
+            var response = await _weatherApplicationService.ProcessWeatherRequest(administrative_data);
 
-            var current_temperature = await _weatherApplicationService.GetCurrentWeather(administrative_data);
+            if (!response.Success) return NotFound(response);
 
-            if (current_temperature == null)
-            {
-                return Ok(new WeatherResponse
-                {
-                    Success = false,
-                    Temperature = null,
-                    Message = "無法取得天氣資料"
-                });
-            }
-
-            return Ok(new WeatherResponse
-            {
-                Success = true,
-                Temperature = current_temperature,
-                Message = "成功取得天氣"
-            });
+            return Ok(response);
         }
     }
 }

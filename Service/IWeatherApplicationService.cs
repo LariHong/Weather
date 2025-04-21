@@ -1,10 +1,12 @@
-﻿using Weather.Model;
+﻿using Microsoft.AspNetCore.Mvc;
+using Weather.Model;
 
 namespace Weather.Service
 {
     //天氣應用介面
     public interface IWeatherApplicationService
     {
-        public Task<double?> GetCurrentWeather(AdministrativeData administrativeData);
+
+        Task<WeatherResponseResult<WeatherResponse>> ProcessWeatherRequest(AdministrativeData administrative_data);
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
 using Weather.Delegate;
 using Weather.Infrastructure;
 using Weather.Model;
@@ -8,45 +9,35 @@ namespace Weather.Service
     //天氣服務應用流程 
     public class WeatherApplicationService : IWeatherApplicationService
     {
-        private readonly IServiceProvider<AdministrativeService> _administrativeServiceProvider;
-        private readonly ServiceFactory<OpenmeteoService, string> _openmeteoServiceProvider;
-        public WeatherApplicationService(IServiceProvider<AdministrativeService> administrativeServiceProvider, ServiceFactory<OpenmeteoService, string> openmeteoServiceProvider) 
+        private readonly IWeatherService _weatherService;
+        public WeatherApplicationService(IWeatherService weatherService)
         {
-            _administrativeServiceProvider = administrativeServiceProvider;
-            _openmeteoServiceProvider = openmeteoServiceProvider;  
+            _weatherService = weatherService;
         }
-        
-        // 獲取目前的天氣
-        public async Task<double?> GetCurrentWeather(AdministrativeData administrativeData)
+        public async Task<WeatherResponseResult<WeatherResponse>> ProcessWeatherRequest(AdministrativeData administrative_data)
         {
             try
             {
-                var coordinatesProvider = _administrativeServiceProvider.Create();
-                var coordinates = await coordinatesProvider.GetCoordinates(administrativeData.Country, administrativeData.City, administrativeData.Administrative);
+                var current_temperature = await _weatherService.GetCurrentWeather(administrative_data);
 
-                if (coordinates == null)
+                if (current_temperature == null)
                 {
-                    Console.WriteLine("Failed to get coordinates.");
-                    return null;
+
+                    return WeatherResponseResult<WeatherResponse>.Fail("天氣資訊錯誤");
                 }
 
-                var url = $"https://api.open-meteo.com/v1/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&current=temperature_2m";
+                var formattedTemperature = _weatherService.FormatTemperature(current_temperature.Value);
 
-                var openmeteoProvider = _openmeteoServiceProvider(url);
-                var current_temperature = await openmeteoProvider.GetCurrentTemperature();
-                if (current_temperature==null)
+                return WeatherResponseResult<WeatherResponse>.Ok(new WeatherResponse
                 {
-                    Console.WriteLine("無法取得天氣資料");
-                    return null;
-                }
-
-                return current_temperature;
+                    Success = true,
+                    Administrative = administrative_data.Administrative,
+                    Temperature = formattedTemperature
+                }, "成功取得天氣");
             }
             catch (Exception ex)
             {
-                // 記錄錯誤訊息或拋出給上層處理
-                Console.WriteLine($"Error retrieving temperature: {ex.Message}");
-                return null;
+                return WeatherResponseResult<WeatherResponse>.Fail("exception錯誤");
             }
         }
     }

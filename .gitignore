@@ -160,3 +160,6 @@ secrets.json
 # Rider
 .idea/
 *.sln.iml
+
+# Visual Studio launch settings
+Properties/launchSettings.json

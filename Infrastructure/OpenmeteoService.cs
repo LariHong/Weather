@@ -14,16 +14,31 @@ namespace Weather.Infrastructure
         //獲取目前氣溫
         public async Task<double> GetCurrentTemperature()
         {
-            var json = await _httpService.GetJson();
+            try
+            {
+                var json = await _httpService.GetJson();
 
-            using var doc = JsonDocument.Parse(json);
-            var root = doc.RootElement;
-            var temperature = root.GetProperty("current")
-                                    .GetProperty("temperature_2m");
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+                var temperature = root.GetProperty("current")
+                                        .GetProperty("temperature_2m");
 
-            double current_temperature = temperature.GetDouble();
+                double current_temperature = temperature.GetDouble();
 
-            return current_temperature;
+                return current_temperature;
+            }
+            catch (JsonException ex)
+            {
+                // JSON 格式錯誤
+                Console.WriteLine($"JSON parsing error: {ex.Message}");
+                return 0.0;
+            }
+            catch (Exception ex)
+            {
+                // 其他錯誤
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+                return 0.0;
+            }
         }
     }
 }

@@ -17,15 +17,30 @@ namespace Weather.Service
         // 獲取目前的天氣
         public async Task<double> GetCurrentWeather(AdministrativeData administrativeData)
         {
-            var coordinatesProvider =  _administrativeServiceProvider.Create();
-            var Coordinates = await coordinatesProvider.GetCoordinates(administrativeData.Country, administrativeData.City, administrativeData.Administrative);
+            try
+            {
+                var coordinatesProvider = _administrativeServiceProvider.Create();
+                var coordinates = await coordinatesProvider.GetCoordinates(administrativeData.Country, administrativeData.City, administrativeData.Administrative);
 
-            var url = $"https://api.open-meteo.com/v1/forecast?latitude={Coordinates.Latitude}&longitude={Coordinates.Longitude}&current=temperature_2m";
-            
-            var openmeteoProvider = _openmeteoServiceProvider.Create(url);
-            var current_temperature = await openmeteoProvider.GetCurrentTemperature();
+                if (coordinates == null)
+                {
+                    Console.WriteLine("Failed to get coordinates.");
+                    return 0.0;
+                }
 
-            return current_temperature;
+                var url = $"https://api.open-meteo.com/v1/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&current=temperature_2m";
+
+                var openmeteoProvider = _openmeteoServiceProvider.Create(url);
+                var current_temperature = await openmeteoProvider.GetCurrentTemperature();
+
+                return current_temperature;
+            }
+            catch (Exception ex)
+            {
+                // 記錄錯誤訊息或拋出給上層處理
+                Console.WriteLine($"Error retrieving temperature: {ex.Message}");
+                return 0.0;
+            }
         }
     }
 }

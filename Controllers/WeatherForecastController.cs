@@ -39,7 +39,7 @@ namespace Weather_Project.Controllers
             return current_temperature;
         }
 
-        [HttpPost("WeatherForecast/post")]
+        [HttpPost("post")]
         public async Task<Double> GetWeather2([FromBody] AdministrativeData administrative_data)
         {
 

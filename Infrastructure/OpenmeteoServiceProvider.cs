@@ -1,21 +1,20 @@
-﻿using Weather.Service;
+﻿using Weather.Delegate;
+using Weather.Service;
 
 namespace Weather.Infrastructure
 {
-    // IOpenmeteoServiceProvider自動注入實作
-    public class OpenmeteoServiceProvider : IServiceProvider<OpenmeteoService,string>
+    // //ServiceFactory 的抽象化實例介面實作
+    public class OpenmeteoServiceProvider : IOpenmeteoServiceProvider
     {
-        private readonly IHttpClientFactory _client;
-        public OpenmeteoServiceProvider(IHttpClientFactory httpClient)
+        private readonly ServiceFactory<OpenmeteoService,string> _serviceFactory;
+        public OpenmeteoServiceProvider(ServiceFactory<OpenmeteoService, string> serviceFactory)
         {
-            _client = httpClient;
+            _serviceFactory = serviceFactory;
         }
+        //目前沒有用到
         public OpenmeteoService Create(string url)
         {
-            var client = _client.CreateClient();
-            var httpservice = new HttpService(url, client);
-
-            return new OpenmeteoService(httpservice);
+            return _serviceFactory(url);
         }
     }
 }

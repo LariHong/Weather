@@ -1,4 +1,5 @@
 ﻿
+using Weather.Delegate;
 using Weather.Infrastructure;
 using Weather.Model;
 
@@ -8,8 +9,8 @@ namespace Weather.Service
     public class WeatherApplicationService : IWeatherApplicationService
     {
         private readonly IServiceProvider<AdministrativeService> _administrativeServiceProvider;
-        private readonly IServiceProvider<OpenmeteoService, string> _openmeteoServiceProvider;
-        public WeatherApplicationService(IServiceProvider<AdministrativeService> administrativeServiceProvider, IServiceProvider<OpenmeteoService, string> openmeteoServiceProvider) 
+        private readonly ServiceFactory<OpenmeteoService, string> _openmeteoServiceProvider;
+        public WeatherApplicationService(IServiceProvider<AdministrativeService> administrativeServiceProvider, ServiceFactory<OpenmeteoService, string> openmeteoServiceProvider) 
         {
             _administrativeServiceProvider = administrativeServiceProvider;
             _openmeteoServiceProvider = openmeteoServiceProvider;  
@@ -31,7 +32,7 @@ namespace Weather.Service
 
                 var url = $"https://api.open-meteo.com/v1/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&current=temperature_2m";
 
-                var openmeteoProvider = _openmeteoServiceProvider.Create(url);
+                var openmeteoProvider = _openmeteoServiceProvider(url);
                 var current_temperature = await openmeteoProvider.GetCurrentTemperature();
                 if (current_temperature==null)
                 {

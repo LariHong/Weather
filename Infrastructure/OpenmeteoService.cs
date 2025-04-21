@@ -12,7 +12,7 @@ namespace Weather.Infrastructure
             _httpService = httpService;
         }
         //獲取目前氣溫
-        public async Task<double> GetCurrentTemperature()
+        public async Task<double?> GetCurrentTemperature()
         {
             try
             {
@@ -31,13 +31,13 @@ namespace Weather.Infrastructure
             {
                 // JSON 格式錯誤
                 Console.WriteLine($"JSON parsing error: {ex.Message}");
-                return 0.0;
+                return null;
             }
             catch (Exception ex)
             {
                 // 其他錯誤
                 Console.WriteLine($"Unexpected error: {ex.Message}");
-                return 0.0;
+                return null;
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿
+using Weather.Infrastructure;
 using Weather.Model;
 
 namespace Weather.Service
@@ -6,16 +7,16 @@ namespace Weather.Service
     //天氣服務應用流程 
     public class WeatherApplicationService : IWeatherApplicationService
     {
-        private readonly IAdministrativeServiceProvider _administrativeServiceProvider;
-        private readonly IOpenmeteoServiceProvider _openmeteoServiceProvider;
-        public WeatherApplicationService(IAdministrativeServiceProvider administrativeServiceProvider,IOpenmeteoServiceProvider openmeteoServiceProvider) 
+        private readonly IServiceProvider<AdministrativeService> _administrativeServiceProvider;
+        private readonly IServiceProvider<OpenmeteoService, string> _openmeteoServiceProvider;
+        public WeatherApplicationService(IServiceProvider<AdministrativeService> administrativeServiceProvider, IServiceProvider<OpenmeteoService, string> openmeteoServiceProvider) 
         {
             _administrativeServiceProvider = administrativeServiceProvider;
             _openmeteoServiceProvider = openmeteoServiceProvider;  
         }
         
         // 獲取目前的天氣
-        public async Task<double> GetCurrentWeather(AdministrativeData administrativeData)
+        public async Task<double?> GetCurrentWeather(AdministrativeData administrativeData)
         {
             try
             {
@@ -25,13 +26,18 @@ namespace Weather.Service
                 if (coordinates == null)
                 {
                     Console.WriteLine("Failed to get coordinates.");
-                    return 0.0;
+                    return null;
                 }
 
                 var url = $"https://api.open-meteo.com/v1/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&current=temperature_2m";
 
                 var openmeteoProvider = _openmeteoServiceProvider.Create(url);
                 var current_temperature = await openmeteoProvider.GetCurrentTemperature();
+                if (current_temperature==null)
+                {
+                    Console.WriteLine("無法取得天氣資料");
+                    return null;
+                }
 
                 return current_temperature;
             }
@@ -39,7 +45,7 @@ namespace Weather.Service
             {
                 // 記錄錯誤訊息或拋出給上層處理
                 Console.WriteLine($"Error retrieving temperature: {ex.Message}");
-                return 0.0;
+                return null;
             }
         }
     }

@@ -25,7 +25,7 @@ namespace Weather_Project.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<Double> GetWeather()
+        public async Task<ActionResult<WeatherResponse>> GetWeather()
         {
             var administrative_data = new AdministrativeData
             {
@@ -36,16 +36,46 @@ namespace Weather_Project.Controllers
 
             var current_temperature = await _weatherApplicationService.GetCurrentWeather(administrative_data);
 
-            return current_temperature;
+            if (current_temperature == null)
+            {
+                return Ok(new WeatherResponse
+                {
+                    Success = false,
+                    Temperature = null,
+                    Message = "無法取得天氣資料"
+                });
+            }
+
+            return Ok(new WeatherResponse
+            {
+                Success = true,
+                Temperature = current_temperature,
+                Message = "成功取得天氣"
+            });
         }
 
         [HttpPost("post")]
-        public async Task<Double> GetWeather2([FromBody] AdministrativeData administrative_data)
+        public async Task<ActionResult<WeatherResponse>> GetWeather2([FromBody] AdministrativeData administrative_data)
         {
 
             var current_temperature = await _weatherApplicationService.GetCurrentWeather(administrative_data);
 
-            return current_temperature;
+            if (current_temperature == null)
+            {
+                return Ok(new WeatherResponse
+                {
+                    Success = false,
+                    Temperature = null,
+                    Message = "無法取得天氣資料"
+                });
+            }
+
+            return Ok(new WeatherResponse
+            {
+                Success = true,
+                Temperature = current_temperature,
+                Message = "成功取得天氣"
+            });
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace Weather.Infrastructure
 {
     // IOpenmeteoServiceProvider自動注入實作
-    public class OpenmeteoServiceProvider : IOpenmeteoServiceProvider
+    public class OpenmeteoServiceProvider : IServiceProvider<OpenmeteoService,string>
     {
         private readonly IHttpClientFactory _client;
         public OpenmeteoServiceProvider(IHttpClientFactory httpClient)
@@ -12,8 +12,8 @@ namespace Weather.Infrastructure
         }
         public OpenmeteoService Create(string url)
         {
-            var clinet = _client.CreateClient();
-            var httpservice = new HttpService(url, clinet);
+            var client = _client.CreateClient();
+            var httpservice = new HttpService(url, client);
 
             return new OpenmeteoService(httpservice);
         }

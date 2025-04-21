@@ -19,8 +19,8 @@ namespace Weather
 
             //µù¥UªA°È
             builder.Services.AddSingleton<IWeatherApplicationService, WeatherApplicationService>();
-            builder.Services.AddSingleton<IAdministrativeServiceProvider, AdministrativeServiceProvider>();
-            builder.Services.AddSingleton<IOpenmeteoServiceProvider, OpenmeteoServiceProvider>();
+            builder.Services.AddSingleton<IServiceProvider<AdministrativeService>, AdministrativeServiceProvider>();
+            builder.Services.AddSingleton<IServiceProvider<OpenmeteoService, string>, OpenmeteoServiceProvider>();
             builder.Services.AddHttpClient();
 
             var app = builder.Build();

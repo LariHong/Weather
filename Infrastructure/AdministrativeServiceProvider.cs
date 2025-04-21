@@ -3,7 +3,7 @@
 namespace Weather.Infrastructure
 {
     // IAdministrativeServiceProvider自動注入實作
-    public class AdministrativeServiceProvider : IAdministrativeServiceProvider
+    public class AdministrativeServiceProvider : IServiceProvider<AdministrativeService>
     {
         private readonly IHttpClientFactory _client;
         public AdministrativeServiceProvider(IHttpClientFactory client)

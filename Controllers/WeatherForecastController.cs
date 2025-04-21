@@ -11,9 +11,9 @@ namespace Weather_Project.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IWeatherApplicationService _weatherApplicationService;
+        private readonly IWeatherApplication _weatherApplicationService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger ,IWeatherApplicationService weatherApplicationService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger ,IWeatherApplication weatherApplicationService)
         {
             _logger = logger;
             _weatherApplicationService = weatherApplicationService;
@@ -37,9 +37,9 @@ namespace Weather_Project.Controllers
         }
 
         [HttpPost("post")]
-        public async Task<ActionResult<WeatherResponseResult<WeatherResponse>>> PostWeather([FromBody] AdministrativeData administrative_data)
+        public async Task<ActionResult<WeatherResponseResult<WeatherResponse>>> PostWeather([FromBody] AdministrativeData administrativeData)
         {
-            var response = await _weatherApplicationService.ProcessWeatherRequest(administrative_data);
+            var response = await _weatherApplicationService.ProcessWeatherRequest(administrativeData);
 
             if (!response.Success) return NotFound(response);
 

@@ -4,7 +4,8 @@ using Weather.Service;
 
 namespace Weather.Infrastructure
 {
-    public class WeatherService: IWeatherService
+
+    public class WeatherService : IWeatherService
     {
         private readonly IServiceProvider<AdministrativeService> _administrativeServiceProvider;
         private readonly ServiceFactory<OpenmeteoService, string> _openmeteoServiceProvider;
@@ -12,11 +13,6 @@ namespace Weather.Infrastructure
         {
             _administrativeServiceProvider = administrativeServiceProvider;
             _openmeteoServiceProvider = openmeteoServiceProvider;
-        }
-
-        public string FormatTemperature(double temperature)
-        {
-            return temperature.ToString("0.0");
         }
 
         // 獲取目前的天氣
@@ -37,15 +33,16 @@ namespace Weather.Infrastructure
                 var url = $"https://api.open-meteo.com/v1/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&current=temperature_2m";
 
                 var openmeteoProvider = _openmeteoServiceProvider(url);
-                var current_temperature = await openmeteoProvider.GetCurrentTemperature();
-                if (current_temperature == null)
+                var currentTemperature = await openmeteoProvider.GetCurrentTemperature();
+
+                if (currentTemperature == null)
                 {
                     Console.WriteLine("無法取得天氣資料");
 
                     return null;
                 }
 
-                return current_temperature;
+                return currentTemperature;
             }
             catch (Exception ex)
             {

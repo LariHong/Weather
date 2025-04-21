@@ -21,12 +21,12 @@ namespace Weather.Infrastructure
 
                 using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;
-                var administrative_json = root.GetProperty(country)
+                var administrativeJson = root.GetProperty(country)
                                 .GetProperty(city)
                                 .GetProperty(administrative);
 
-                double latitude = double.Parse(administrative_json.GetProperty("latitude").GetString());
-                double longitude = double.Parse(administrative_json.GetProperty("longitude").GetString());
+                double latitude = double.Parse(administrativeJson.GetProperty("latitude").GetString());
+                double longitude = double.Parse(administrativeJson.GetProperty("longitude").GetString());
 
                 return new Coordinates
                 {

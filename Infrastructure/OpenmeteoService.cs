@@ -23,9 +23,9 @@ namespace Weather.Infrastructure
                 var temperature = root.GetProperty("current")
                                         .GetProperty("temperature_2m");
 
-                double current_temperature = temperature.GetDouble();
+                double currentTemperature = temperature.GetDouble();
 
-                return current_temperature;
+                return currentTemperature;
             }
             catch (JsonException ex)
             {

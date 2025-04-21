@@ -1,5 +1,6 @@
 ﻿namespace Weather.Service
 {
+    //自定義result
     public class WeatherResponseResult<T>
     {
         public bool Success { get; set; }

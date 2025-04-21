@@ -19,7 +19,7 @@ namespace Weather
             //builder.Services.AddSwaggerGen();
 
             //µù¥UªA°È
-            builder.Services.AddSingleton<IWeatherApplicationService, WeatherApplicationService>();
+            builder.Services.AddSingleton<IWeatherApplication, WeatherApplication>();
             builder.Services.AddSingleton<IWeatherService, WeatherService>();
             builder.Services.AddSingleton<IServiceProvider<AdministrativeService>, AdministrativeServiceProvider>();
             builder.Services.AddTransient<ServiceFactory<OpenmeteoService, string>>(

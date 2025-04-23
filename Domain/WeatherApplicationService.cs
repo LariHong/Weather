@@ -1,24 +1,21 @@
-﻿using Weather.Service;
+﻿using Weather.Model;
+using Weather.Service;
 
 namespace Weather.Domain
 {
-    //應用層的實作
+    //應用層服務的實作
     public class WeatherApplicationService : IWeatherApplicationService
     {
-        public double Temperature { get; private set; }
+        //獲取Domain的DI
+        private readonly IWeatherService _weatherService;
 
-        public WeatherApplicationService(double temperature) 
+        public WeatherApplicationService(IWeatherService weatherService) 
         {
-            Temperature = temperature;
+           _weatherService = weatherService;
         }
-        public string FormatTemperature()
+        public async Task<double?> GetCurrentWeather(AdministrativeData administrativeData)
         {
-            return Temperature.ToString("0.0");
-        }
-
-        public bool IsDangerous()
-        {
-            throw new NotImplementedException();
+            return await _weatherService.GetCurrentWeather(administrativeData);
         }
     }
 }

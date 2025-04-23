@@ -1,5 +1,6 @@
 
 using Weather.Delegate;
+using Weather.Domain;
 using Weather.Infrastructure;
 using Weather.Service;
 
@@ -22,6 +23,7 @@ namespace Weather
             builder.Services.AddSingleton<IWeatherApplication, WeatherApplication>();
             builder.Services.AddSingleton<IWeatherService, WeatherService>();
             builder.Services.AddSingleton<IServiceProvider<AdministrativeService>, AdministrativeServiceProvider>();
+            builder.Services.AddSingleton<IWeatherApplicationService, WeatherApplicationService>();
             builder.Services.AddTransient<ServiceFactory<OpenmeteoService, string>>(
                 sp => (url) =>
                 {

@@ -1,10 +1,10 @@
-﻿namespace Weather.Service
+﻿using Weather.Model;
+
+namespace Weather.Service
 {
     //服務IWeatherApplication
     public interface IWeatherApplicationService
     {
-        public double Temperature { get; }
-        public string FormatTemperature();
-        public bool IsDangerous();
+        public Task<double?> GetCurrentWeather(AdministrativeData administrativeData);
     }
 }

@@ -23,6 +23,8 @@ namespace Weather
             //µù¥UªA°È
             builder.Services.AddSingleton<IWeatherApplication, WeatherApplication>();
             builder.Services.AddSingleton<IWeatherService, WeatherService>();
+            builder.Services.AddSingleton<CoordinateFetcher>();
+            builder.Services.AddSingleton<WeatherFetcher>();
             builder.Services.AddSingleton<IServiceProvider<AdministrativeService>, AdministrativeServiceProvider>();
             builder.Services.AddSingleton<IWeatherApplicationService, WeatherApplicationService>();
             builder.Services.AddSingleton<IOpenmeteoServiceProvider, OpenmeteoServiceProvider>();

@@ -3,10 +3,9 @@ using Weather.Model;
 
 namespace Weather.Domain
 {
-    //應用層服務的實作
+    //給應用層服務的實作
     public class WeatherApplicationService : IWeatherApplicationService
     {
-        //獲取Domain的DI
         private readonly IWeatherService _weatherService;
 
         public WeatherApplicationService(IWeatherService weatherService) 

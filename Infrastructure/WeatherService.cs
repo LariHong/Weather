@@ -8,10 +8,10 @@ namespace Weather.Infrastructure
     //WeatherService
     public class WeatherService : IWeatherService
     {
-        private readonly CoordinateFetcher _coordinateFetcher;
-        private readonly WeatherFetcher _weatherFetcher;
+        private readonly ICoordinateFetcher _coordinateFetcher;
+        private readonly IWeatherFetcher _weatherFetcher;
 
-        public WeatherService(CoordinateFetcher coordinateFetcher, WeatherFetcher weatherFetcher)
+        public WeatherService(ICoordinateFetcher coordinateFetcher, IWeatherFetcher weatherFetcher)
         {
             _coordinateFetcher = coordinateFetcher;
             _weatherFetcher = weatherFetcher;

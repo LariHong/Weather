@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using Weather.Service;
+using Weather.Domain.Service;
 
 namespace Weather.Infrastructure
 {
@@ -16,7 +16,7 @@ namespace Weather.Infrastructure
         {
             try
             {
-                var json = await _httpService.GetJson();
+                var json = await _httpService.GetApiResponseJson();
 
                 using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;

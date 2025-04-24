@@ -1,6 +1,6 @@
 ﻿using Weather.Model;
 
-namespace Weather.Service
+namespace Weather.Domain.Service
 {
     public interface IWeatherService
     {

@@ -15,7 +15,7 @@ namespace Weather.Infrastructure
             _url = url;
         }
         //獲取http的內容(Json)
-        public async Task<string> GetJson()
+        public async Task<string> GetApiResponseJson()
         {
             try
             {

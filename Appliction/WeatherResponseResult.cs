@@ -1,4 +1,4 @@
-﻿namespace Weather.Service
+﻿namespace Weather.Appliction
 {
     //自定義result
     public class WeatherResponseResult<T>

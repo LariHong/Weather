@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Weather.Model;
 
-namespace Weather.Service
+namespace Weather.Appliction
 {
     //天氣應用介面
     public interface IWeatherApplication

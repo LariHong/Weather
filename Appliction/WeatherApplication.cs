@@ -1,10 +1,11 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Weather.Delegate;
+using Weather.Domain.Service;
 using Weather.Infrastructure;
 using Weather.Model;
 
-namespace Weather.Service
+namespace Weather.Appliction
 {
     //天氣服務應用流程 
     public class WeatherApplication : IWeatherApplication
@@ -19,7 +20,7 @@ namespace Weather.Service
         {
             try
             {
-                var currentTemperature = await _weatherApplicationService.GetCurrentWeather(administrativeData);
+                var currentTemperature = await _weatherApplicationService.GetWeatherResponse(administrativeData);
 
                 if (currentTemperature == null)
                 {
@@ -31,7 +32,7 @@ namespace Weather.Service
                 {
                     Success = true,
                     Administrative = administrativeData.Administrative,
-                    Temperature = TemperatureFormatter.Format(currentTemperature??0)
+                    Temperature = TemperatureFormatter.Format(currentTemperature ?? 0)
                 }, "成功取得天氣");
             }
             catch (Exception ex)

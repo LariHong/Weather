@@ -1,8 +1,9 @@
 
+using Weather.Appliction;
 using Weather.Delegate;
 using Weather.Domain;
+using Weather.Domain.Service;
 using Weather.Infrastructure;
-using Weather.Service;
 
 namespace Weather
 {
@@ -24,14 +25,15 @@ namespace Weather
             builder.Services.AddSingleton<IWeatherService, WeatherService>();
             builder.Services.AddSingleton<IServiceProvider<AdministrativeService>, AdministrativeServiceProvider>();
             builder.Services.AddSingleton<IWeatherApplicationService, WeatherApplicationService>();
-            builder.Services.AddTransient<ServiceFactory<OpenmeteoService, string>>(
+            builder.Services.AddSingleton<IOpenmeteoServiceProvider, OpenmeteoServiceProvider>();
+            builder.Services.AddTransient<HttpClientFactory<HttpService, string>>(
                 sp => (url) =>
                 {
                     var clientFactory = sp.GetRequiredService<IHttpClientFactory>();
                     var client = clientFactory.CreateClient();
-                    var httpservice = new HttpService(url, client);
+                    new HttpService(url, client);
 
-                    return new OpenmeteoService(httpservice);
+                    return new HttpService(url, client);
                 }
                 );
             builder.Services.AddHttpClient();

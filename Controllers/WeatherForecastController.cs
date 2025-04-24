@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Metrics;
 using System.Text.Json;
+using Weather.Appliction;
 using Weather.Model;
-using Weather.Service;
 
 namespace Weather_Project.Controllers
 {

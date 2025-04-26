@@ -26,6 +26,8 @@ namespace Weather.Infrastructure
                 if (coordinates == null) return ResponseResult.Fail("獲取座標資料失敗");
 
                 var temperature = await _weatherFetcher.GetTemperature(coordinates);
+                if (temperature == null) return ResponseResult.Fail("獲取溫度資料失敗");
+
                 return  ResponseResult.Ok(new WeatherResponse
                 {
                     Success = true,

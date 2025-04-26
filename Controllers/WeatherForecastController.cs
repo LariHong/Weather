@@ -20,7 +20,7 @@ namespace Weather_Project.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<ActionResult<WeatherResponse>> GetWeather()
+        public async Task<ActionResult<ResponseResult>> GetWeather()
         {
             var administrative_data = new AdministrativeData
             {
@@ -37,7 +37,7 @@ namespace Weather_Project.Controllers
         }
 
         [HttpPost("post")]
-        public async Task<ActionResult<WeatherResponseResult<WeatherResponse>>> PostWeather([FromBody] AdministrativeData administrativeData)
+        public async Task<ActionResult<ResponseResult>> PostWeather([FromBody] AdministrativeData administrativeData)
         {
             var response = await _weatherApplication.ProcessWeatherRequest(administrativeData);
 

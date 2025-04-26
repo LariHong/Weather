@@ -1,16 +1,16 @@
 ﻿namespace Weather.Appliction
 {
     //自定義result
-    public class WeatherResponseResult<T>
+    public class ResponseResult
     {
         public bool Success { get; set; }
         public string? Message { get; set; }
-        public T? Data { get; set; }
+        public object? Data { get; set; }
 
-        public static WeatherResponseResult<T> Ok(T data, string? message = null) =>
+        public static ResponseResult Ok(object data, string? message = null) =>
             new() { Success = true, Message = message, Data = data };
 
-        public static WeatherResponseResult<T> Fail(string message) =>
+        public static ResponseResult Fail(string message) =>
             new() { Success = false, Message = message, Data = default };
     }
 }

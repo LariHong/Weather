@@ -16,28 +16,23 @@ namespace Weather.Appliction
         {
             _weatherApplicationService = weatherApplicationService;
         }
-        public async Task<WeatherResponseResult<WeatherResponse>> ProcessWeatherRequest(AdministrativeData administrativeData)
+        public async Task<ResponseResult> ProcessWeatherRequest(AdministrativeData administrativeData)
         {
             try
             {
-                var currentTemperature = await _weatherApplicationService.GetWeatherResponse(administrativeData);
+                var currentTemperatureResponseResult = await _weatherApplicationService.GetWeatherResponse(administrativeData);
 
-                if (currentTemperature == null)
+                if (currentTemperatureResponseResult == null)
                 {
 
-                    return WeatherResponseResult<WeatherResponse>.Fail("天氣資訊錯誤");
+                    return ResponseResult.Fail("天氣資訊錯誤");
                 }
 
-                return WeatherResponseResult<WeatherResponse>.Ok(new WeatherResponse
-                {
-                    Success = true,
-                    Administrative = administrativeData.Administrative,
-                    Temperature = TemperatureFormatter.Format(currentTemperature ?? 0)
-                }, "成功取得天氣");
+                return currentTemperatureResponseResult;
             }
             catch (Exception ex)
             {
-                return WeatherResponseResult<WeatherResponse>.Fail("exception錯誤");
+                return ResponseResult.Fail("exception錯誤");
             }
         }
     }

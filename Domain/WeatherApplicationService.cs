@@ -1,4 +1,5 @@
-﻿using Weather.Domain.Service;
+﻿using Weather.Appliction;
+using Weather.Domain.Service;
 using Weather.Model;
 
 namespace Weather.Domain
@@ -12,7 +13,7 @@ namespace Weather.Domain
         {
            _weatherService = weatherService;
         }
-        public async Task<double?> GetWeatherResponse(AdministrativeData administrativeData)
+        public async Task<ResponseResult> GetWeatherResponse(AdministrativeData administrativeData)
         {
             return await _weatherService.GetCurrentWeather(administrativeData);
         }

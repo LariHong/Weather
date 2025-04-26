@@ -7,6 +7,6 @@ namespace Weather.Appliction
     public interface IWeatherApplication
     {
 
-        Task<WeatherResponseResult<WeatherResponse>> ProcessWeatherRequest(AdministrativeData administrativeData);
+        Task<ResponseResult> ProcessWeatherRequest(AdministrativeData administrativeData);
     }
 }

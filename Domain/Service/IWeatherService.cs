@@ -1,9 +1,10 @@
-﻿using Weather.Model;
+﻿using Weather.Appliction;
+using Weather.Model;
 
 namespace Weather.Domain.Service
 {
     public interface IWeatherService
     {
-        public Task<double?> GetCurrentWeather(AdministrativeData administrativeData);
+        public Task<ResponseResult> GetCurrentWeather(AdministrativeData administrativeData);
     }
 }

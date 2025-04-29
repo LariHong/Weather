@@ -21,13 +21,13 @@ namespace Weather
             //builder.Services.AddSwaggerGen();
 
             //µù¥UªA°È
-            builder.Services.AddSingleton<IWeatherApplication, WeatherApplication>();
-            builder.Services.AddSingleton<IWeatherService, WeatherService>();
-            builder.Services.AddSingleton<ICoordinateFetcher, CoordinateFetcher>();
-            builder.Services.AddSingleton<IWeatherFetcher, WeatherFetcher>();
-            builder.Services.AddSingleton<IServiceProvider<AdministrativeService>, AdministrativeServiceProvider>();
-            builder.Services.AddSingleton<IWeatherApplicationService, WeatherApplicationService>();
-            builder.Services.AddSingleton<IOpenmeteoServiceProvider, OpenmeteoServiceProvider>();
+            builder.Services.AddScoped<IWeatherApplication, WeatherApplication>();
+            builder.Services.AddScoped<IWeatherApplicationService, WeatherApplicationService>();
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
+            builder.Services.AddScoped<IServiceProvider<AdministrativeService>, AdministrativeServiceProvider>();
+            builder.Services.AddTransient<ICoordinateFetcher, CoordinateFetcher>();
+            builder.Services.AddScoped<IOpenmeteoServiceProvider, OpenmeteoServiceProvider>();
+            builder.Services.AddTransient<IWeatherFetcher, WeatherFetcher>();
             builder.Services.AddTransient<HttpClientFactory<HttpService, string>>(
                 sp => (url) =>
                 {

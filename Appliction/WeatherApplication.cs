@@ -20,7 +20,7 @@ namespace Weather.Appliction
         {
             try
             {
-                var currentTemperatureResponseResult = await _weatherApplicationService.GetWeatherResponse(administrativeData);
+                var currentTemperatureResponseResult = await _weatherApplicationService.GetCurrentWeatherResponse(administrativeData);
 
                 if (currentTemperatureResponseResult == null)
                 {

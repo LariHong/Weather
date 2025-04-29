@@ -13,7 +13,7 @@ namespace Weather.Domain
         {
            _weatherService = weatherService;
         }
-        public async Task<ResponseResult> GetWeatherResponse(AdministrativeData administrativeData)
+        public async Task<ResponseResult> GetCurrentWeatherResponse(AdministrativeData administrativeData)
         {
             return await _weatherService.GetCurrentWeather(administrativeData);
         }

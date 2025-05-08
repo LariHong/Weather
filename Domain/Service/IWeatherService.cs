@@ -5,6 +5,6 @@ namespace Weather.Domain.Service
 {
     public interface IWeatherService
     {
-        public Task<ResponseResult> GetCurrentWeather(AdministrativeData administrativeData);
+        public Task<WeatherResponse?> GetCurrentWeather(AdministrativeData administrativeData);
     }
 }

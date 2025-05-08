@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Weather.Delegate;
 using Weather.Domain.Service;
-using Weather.Infrastructure;
+using Weather.Infrastructure.Exceptions;
 using Weather.Model;
 
 namespace Weather.Appliction
@@ -28,11 +28,19 @@ namespace Weather.Appliction
                     return ResponseResult.Fail("天氣資訊錯誤");
                 }
 
-                return currentTemperatureResponseResult;
+                return ResponseResult.Ok(currentTemperatureResponseResult,"成功取得天氣資訊");
+            }
+            catch (CoordinateFetcherException ex)
+            {
+                return ResponseResult.Fail(ex.Message);
+            }
+            catch (WeatherFetcherException ex)
+            {
+                return ResponseResult.Fail(ex.Message);
             }
             catch (Exception ex)
             {
-                return ResponseResult.Fail("exception錯誤");
+                return ResponseResult.Fail(ex.Message);
             }
         }
     }

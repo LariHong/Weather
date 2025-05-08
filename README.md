@@ -10,6 +10,24 @@
 
 ---
 
+## Middleware 的設計用途
+
+Middleware 的設計目的是處理 跨領域關注（cross-cutting concerns），例如：
+
+驗證（Authentication）
+
+授權（Authorization）
+
+記錄（Logging）
+
+錯誤處理（Error handling）
+
+請求/回應轉換（Request/Response transformation）
+
+快取（Caching）
+
+---
+
 ## 🧱 架構分層（DDD）
 
 ---

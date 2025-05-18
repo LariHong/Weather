@@ -2,7 +2,7 @@
 using System;
 using System.Text.Json;
 
-namespace Weather.Infrastructure
+namespace Weather.Infrastructure.Helpers
 {
     //獲取http的內容服務實作
     public class HttpService
@@ -36,7 +36,7 @@ namespace Weather.Infrastructure
                 // 逾時或取消
                 return $"Request was canceled or timed out: {ex.Message}";
             }
-            catch(JsonException ex)
+            catch (JsonException ex)
             {
                 return $"Json error: {ex.Message}";
             }

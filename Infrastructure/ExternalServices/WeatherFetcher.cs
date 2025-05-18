@@ -1,8 +1,9 @@
 ﻿using Weather.Delegate;
-using Weather.Domain;
+using Weather.Domain.Service.Openmeteo;
+using Weather.Infrastructure.Helpers;
 using Weather.Model;
 
-namespace Weather.Infrastructure
+namespace Weather.Infrastructure.ExternalServices
 {
     //天氣資訊獲取
     public class WeatherFetcher : IWeatherFetcher

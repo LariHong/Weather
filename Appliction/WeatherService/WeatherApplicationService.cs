@@ -1,17 +1,16 @@
-﻿using Weather.Appliction;
-using Weather.Domain.Service;
+﻿using Weather.Domain.Service.Weather;
 using Weather.Model;
 
-namespace Weather.Domain
+namespace Weather.Appliction.WeatherService
 {
     //給應用層服務的實作
     public class WeatherApplicationService : IWeatherApplicationService
     {
         private readonly IWeatherService _weatherService;
 
-        public WeatherApplicationService(IWeatherService weatherService) 
+        public WeatherApplicationService(IWeatherService weatherService)
         {
-           _weatherService = weatherService;
+            _weatherService = weatherService;
         }
         public async Task<WeatherResponse?> GetCurrentWeatherResponse(AdministrativeData administrativeData)
         {

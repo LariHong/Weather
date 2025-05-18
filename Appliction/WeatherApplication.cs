@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Weather.Appliction.WeatherService;
 using Weather.Delegate;
-using Weather.Domain.Service;
 using Weather.Infrastructure.Exceptions;
 using Weather.Model;
 

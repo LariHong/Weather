@@ -1,6 +1,6 @@
 ﻿using Weather.Model;
 
-namespace Weather.Infrastructure
+namespace Weather.Infrastructure.ExternalServices
 {
     //天氣資訊獲取
     public interface IWeatherFetcher

@@ -1,6 +1,6 @@
-﻿using Weather.Infrastructure;
+﻿using Weather.Infrastructure.Helpers;
 
-namespace Weather.Domain
+namespace Weather.Domain.Service.Administrative
 {
     //泛型的IServiceProvider
     public interface IServiceProvider<TService>

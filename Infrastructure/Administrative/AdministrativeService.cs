@@ -1,8 +1,9 @@
 ﻿using System.Text.Json;
-using Weather.Domain.Service;
+using Weather.Domain.Service.Administrative;
+using Weather.Infrastructure.Helpers;
 using Weather.Model;
 
-namespace Weather.Infrastructure
+namespace Weather.Infrastructure.Administrative
 {
     // IAdministrativeService實作
     public class AdministrativeService : IAdministrativeService

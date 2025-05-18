@@ -1,4 +1,4 @@
-﻿namespace Weather.Domain.Service
+﻿namespace Weather.Domain.Service.Openmeteo
 {
     //OpenmeteoService介面
     public interface IOpenmeteoService

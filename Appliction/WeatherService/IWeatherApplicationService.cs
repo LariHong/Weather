@@ -1,7 +1,6 @@
-﻿using Weather.Appliction;
-using Weather.Model;
+﻿using Weather.Model;
 
-namespace Weather.Domain.Service
+namespace Weather.Appliction.WeatherService
 {
     //服務IWeatherApplication
     public interface IWeatherApplicationService

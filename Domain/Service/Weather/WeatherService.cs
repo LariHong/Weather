@@ -1,11 +1,11 @@
 ﻿using Weather.Appliction;
 using Weather.Delegate;
-using Weather.Domain;
-using Weather.Domain.Service;
 using Weather.Infrastructure.Exceptions;
+using Weather.Infrastructure.ExternalServices;
+using Weather.Infrastructure.Helpers;
 using Weather.Model;
 
-namespace Weather.Infrastructure
+namespace Weather.Domain.Service.Weather
 {
     //WeatherService
     public class WeatherService : IWeatherService
@@ -29,14 +29,14 @@ namespace Weather.Infrastructure
                 var temperature = await _weatherFetcher.GetTemperature(coordinates);
                 if (temperature == null) throw new WeatherFetcherException("獲取溫度資料失敗");
 
-                return  new WeatherResponse
+                return new WeatherResponse
                 {
                     Success = true,
                     Administrative = data.Administrative,
                     Temperature = TemperatureFormatter.Format(temperature ?? 0)
                 };
             }
-            catch(CoordinateFetcherException)
+            catch (CoordinateFetcherException)
             {
                 throw;
             }

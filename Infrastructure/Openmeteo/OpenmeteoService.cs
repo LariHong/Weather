@@ -1,13 +1,14 @@
 ﻿using System.Text.Json;
-using Weather.Domain.Service;
+using Weather.Domain.Service.Openmeteo;
+using Weather.Infrastructure.Helpers;
 
-namespace Weather.Infrastructure
+namespace Weather.Infrastructure.Openmeteo
 {
     // IOpenmeteoService實作
     public class OpenmeteoService : IOpenmeteoService
     {
         private readonly HttpService _httpService;
-        public OpenmeteoService(HttpService httpService) 
+        public OpenmeteoService(HttpService httpService)
         {
             _httpService = httpService;
         }

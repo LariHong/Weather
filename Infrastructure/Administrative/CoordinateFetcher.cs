@@ -1,8 +1,7 @@
 ﻿using Weather.Domain.Service.Administrative;
-using Weather.Infrastructure.Administrative;
 using Weather.Model;
 
-namespace Weather.Infrastructure.ExternalServices
+namespace Weather.Infrastructure.Administrative
 {
     //獲取行政區資訊
     public class CoordinateFetcher : ICoordinateFetcher

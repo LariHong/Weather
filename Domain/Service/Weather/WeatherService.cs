@@ -1,7 +1,8 @@
 ﻿using Weather.Appliction;
 using Weather.Delegate;
+using Weather.Domain.Service.Administrative;
+using Weather.Domain.Service.Openmeteo;
 using Weather.Infrastructure.Exceptions;
-using Weather.Infrastructure.ExternalServices;
 using Weather.Infrastructure.Helpers;
 using Weather.Model;
 

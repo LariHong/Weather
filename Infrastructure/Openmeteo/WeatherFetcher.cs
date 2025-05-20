@@ -3,7 +3,7 @@ using Weather.Domain.Service.Openmeteo;
 using Weather.Infrastructure.Helpers;
 using Weather.Model;
 
-namespace Weather.Infrastructure.ExternalServices
+namespace Weather.Infrastructure.Openmeteo
 {
     //天氣資訊獲取
     public class WeatherFetcher : IWeatherFetcher

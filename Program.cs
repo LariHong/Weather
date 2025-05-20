@@ -6,7 +6,6 @@ using Weather.Domain.Service.Administrative;
 using Weather.Domain.Service.Openmeteo;
 using Weather.Domain.Service.Weather;
 using Weather.Infrastructure.Administrative;
-using Weather.Infrastructure.ExternalServices;
 using Weather.Infrastructure.Helpers;
 using Weather.Infrastructure.Openmeteo;
 
